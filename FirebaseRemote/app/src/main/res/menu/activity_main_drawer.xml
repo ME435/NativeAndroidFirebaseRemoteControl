@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
+    <item android:title="For Anyone">
+        <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_set_url"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Set Firebase Path" />
+            <item
+                android:id="@+id/nav_observer"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="Observe Robot" />
+        </menu>
+    </item>
 
-    <item android:title="Communicate">
+    <item android:title="For Robot Team Only">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_manual_drive"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Manual Drive" />
+            <item
+                android:id="@+id/nav_testing"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Testing" />
+            <item
+                android:id="@+id/nav_competition"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Competition" />
         </menu>
     </item>
 
