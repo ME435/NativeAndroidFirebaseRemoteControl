@@ -38,6 +38,11 @@ public class FirebaseState {
     private Modes mModes;
     private Commands mCommands;
 
+    // Getters for each object received.
+    public Params getParams() { return mParams; }
+    public Monitor getMonitor() { return mMonitor; }
+    public Modes getModes() { return mModes; }
+    public Commands getCommands() { return mCommands; }
 
     public FirebaseState(Activity activity) {
         // Creates the one and only FirebaseStateListener
@@ -136,6 +141,7 @@ public class FirebaseState {
             mRobotFirebaseRef.removeEventListener(mMonitorValueEventListener);
             mRobotFirebaseRef.removeEventListener(mCommandsValueEventListener);
             mRobotFirebaseRef.removeEventListener(mModesValueEventListener);
+            Log.d(MainActivity.TAG, "All listeners were removed");
         }
 
         // Remove all of the external Fragment listener connections.

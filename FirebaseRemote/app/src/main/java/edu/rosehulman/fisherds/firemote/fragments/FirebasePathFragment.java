@@ -53,13 +53,11 @@ public class FirebasePathFragment extends BaseFragment {
         setUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FirebasePathFragment.this.getActivity(), "You clicked Set", Toast.LENGTH_SHORT).show();
                 String urlBase = mFirebaseUrlEditText.getText().toString();
                 String robotName = mRobotNameEditText.getText().toString();
-                Log.d(MainActivity.TAG, "Check to make sure mFirebaseState exist (Firebase State) = " + mFirebaseState);
                 mFirebaseState.initialize(urlBase, robotName);
-
                 if (mListener != null) {
+                    Toast.makeText(FirebasePathFragment.this.getActivity(), "Select a remote", Toast.LENGTH_SHORT).show();
                     mListener.onFirebasePathSet();
                 }
             }

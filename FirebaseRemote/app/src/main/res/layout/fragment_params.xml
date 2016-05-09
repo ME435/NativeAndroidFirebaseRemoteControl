@@ -1,13 +1,192 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".fragments.ParamsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the parameters fragment" />
+        style="@style/DisplayText"
+        android:id="@+id/params_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Params" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/drive_straight_label"
+        style="@style/Indent1"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/params_label"
+        android:text="Drive Straight" />
+
+    <TextView
+        android:id="@+id/drive_straight_left_label"
+        style="@style/Indent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/drive_straight_label"
+        android:text="Left Duty Cycle: " />
+
+    <TextView
+        android:id="@+id/drive_straight_left_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/drive_straight_left_label"
+        android:layout_alignBaseline="@+id/drive_straight_left_label"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/drive_straight_right_label"
+        style="@style/Indent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/drive_straight_left_label"
+        android:text="Right Duty Cycle: " />
+
+    <TextView
+        android:id="@+id/drive_straight_right_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/drive_straight_right_label"
+        android:layout_alignBaseline="@+id/drive_straight_right_label"
+        android:text="0" />
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/imgrec_label"
+        style="@style/Indent1"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/drive_straight_right_label"
+        android:text="Image Rec" />
+
+
+    <TextView
+        android:id="@+id/imgrec_target_label"
+        style="@style/Indent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_label"
+        android:text="Target" />
+
+    <TextView
+        android:id="@+id/imgrec_target_h_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_target_label"
+        android:text="H: " />
+
+    <TextView
+        android:id="@+id/imgrec_target_h_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_target_h_label"
+        android:layout_alignBaseline="@+id/imgrec_target_h_label"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/imgrec_target_s_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_target_h_label"
+        android:text="S: " />
+
+    <TextView
+        android:id="@+id/imgrec_target_s_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_target_s_label"
+        android:layout_alignBaseline="@+id/imgrec_target_s_label"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/imgrec_target_v_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_target_s_label"
+        android:text="V: " />
+
+    <TextView
+        android:id="@+id/imgrec_target_v_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_target_v_label"
+        android:layout_alignBaseline="@+id/imgrec_target_v_label"
+        android:text="0" />
+
+
+    <TextView
+        android:id="@+id/imgrec_range_label"
+        style="@style/Indent2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_target_v_label"
+        android:text="Range" />
+
+    <TextView
+        android:id="@+id/imgrec_range_h_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_range_label"
+        android:text="H: " />
+
+    <TextView
+        android:id="@+id/imgrec_range_h_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_range_h_label"
+        android:layout_alignBaseline="@+id/imgrec_range_h_label"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/imgrec_range_s_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_range_h_label"
+        android:text="S: " />
+
+    <TextView
+        android:id="@+id/imgrec_range_s_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_range_s_label"
+        android:layout_alignBaseline="@+id/imgrec_range_s_label"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/imgrec_range_v_label"
+        style="@style/Indent3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgrec_range_s_label"
+        android:text="V: " />
+
+    <TextView
+        android:id="@+id/imgrec_range_v_textview"
+        style="@style/DisplayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imgrec_range_v_label"
+        android:layout_alignBaseline="@+id/imgrec_range_v_label"
+        android:text="0" />
+
+</RelativeLayout>
