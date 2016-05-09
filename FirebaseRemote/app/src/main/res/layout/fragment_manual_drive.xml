@@ -12,6 +12,14 @@
         android:layout_weight="1"
         android:background="@drawable/yellow_button" >
 
+        <TextView
+            style="@style/DisplayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:text="Manual Drive"/>
+
         <Button
             android:id="@+id/wheel_speed_stop_button"
             android:background="@drawable/red_button"
@@ -55,6 +63,37 @@
             style="@style/WheelSpeedButton"
             android:text="Right"
             android:onClick="handleRightClick" />
+
+        <Button
+            android:id="@+id/speed_plus_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/black_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#2FF"
+            android:text="Speed++"
+            android:onClick="handleBatteryClick" />
+
+        <TextView
+            style="@style/DisplayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:text="100%"/>
+
+        <Button
+            android:id="@+id/speed_minus_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/black_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#2FF"
+            android:text="Speed--"
+            android:onClick="handleBatteryClick" />
 
     </RelativeLayout>
 
