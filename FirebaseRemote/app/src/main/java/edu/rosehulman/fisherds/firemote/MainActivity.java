@@ -21,6 +21,8 @@ import edu.rosehulman.fisherds.firemote.fragments.RobotTestingFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String TAG = "FirebaseRobotRemote";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
