@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import edu.rosehulman.fisherds.firemote.fragments.CompetitionFragment;
 import edu.rosehulman.fisherds.firemote.fragments.FirebasePathFragment;
+import edu.rosehulman.fisherds.firemote.fragments.ManualDriveFragment;
 import edu.rosehulman.fisherds.firemote.fragments.ObserveOnlyFragment;
 import edu.rosehulman.fisherds.firemote.fragments.ParamsFragment;
 import edu.rosehulman.fisherds.firemote.fragments.RobotTestingFragment;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
                 switchTo = ObserveOnlyFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_manual_drive:
-                switchTo = RobotTestingFragment.newInstance(mFirebaseState);
+                switchTo = ManualDriveFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_testing:
                 switchTo = RobotTestingFragment.newInstance(mFirebaseState);
