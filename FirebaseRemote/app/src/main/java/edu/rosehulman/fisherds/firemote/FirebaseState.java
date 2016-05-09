@@ -1,6 +1,7 @@
 package edu.rosehulman.fisherds.firemote;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -17,34 +18,58 @@ import edu.rosehulman.fisherds.firemote.models.Params;
  */
 public class FirebaseState {
 
-    private final Firebase mRobotFirebaseRef;
-    private ParamsChangeListener mParamsChangeListener;
-    private MonitorChangeListener mMonitorChangeListener;
-    private ModesChangeListener mModesChangeListener;
-    private CommandsChangeListener mCommandsChangeListener;
+    private Firebase mRobotFirebaseRef;
+
+    // Connection to which fragment is setup to listen for updates.
+    private ParamsChangeListener mParamsDelegate;
+    private MonitorChangeListener mMonitorDelegate;
+    private ModesChangeListener mModesDelegate;
+    private CommandsChangeListener mCommandsDelegate;
+
+    // References to the internal Firebase listeners that are setup for this path.
+    private ValueEventListener mParamsValueEventListener;
+    private ValueEventListener mMonitorValueEventListener;
+    private ValueEventListener mCommandsValueEventListener;
+    private ValueEventListener mModesValueEventListener;
+
+    // Last value received for each object.
+    private Params mParams;
+    private Monitor mMonitor;
+    private Modes mModes;
+    private Commands mCommands;
 
 
-    public FirebaseState(Activity activity, String firebasePath, String robotName) {
+    public FirebaseState(Activity activity) {
         // Creates the one and only FirebaseStateListener
         // Setup Firebase as the very first thing.
         Firebase.setAndroidContext(activity);
         if (!Firebase.getDefaultConfig().isPersistenceEnabled()) {
             Firebase.getDefaultConfig().setPersistenceEnabled(true);
         }
-        Firebase topLevelFirebaseRef = new Firebase(firebasePath);
-        mRobotFirebaseRef = topLevelFirebaseRef.child(robotName);
-
-        addListeners();
     }
 
-    private void addListeners() {
+    /**
+     * Resets the all related listeners and starts a new Firebase ref from scratch using the
+     * provided path.
+     *
+     * @param firebasePath
+     * @param robotName
+     */
+    public void initialize(String firebasePath, String robotName) {
+        reset();
+
+        Firebase topLevelFirebaseRef = new Firebase("https://" + firebasePath + ".firebaseio.com");
+        mRobotFirebaseRef = topLevelFirebaseRef.child(robotName);
 
         // Params
-        mRobotFirebaseRef.child("params").addValueEventListener(new ValueEventListener() {
+        mParamsValueEventListener = mRobotFirebaseRef.child("params")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mParamsChangeListener != null) {
-                    mParamsChangeListener.onParamsChanged(new Params(dataSnapshot));
+                mParams = new Params(dataSnapshot);
+                Log.d(MainActivity.TAG, "Params changed:  " + mParams);
+                if (mParamsDelegate != null) {
+                    mParamsDelegate.onParamsChanged(mParams);
                 }
             }
 
@@ -53,11 +78,13 @@ public class FirebaseState {
         });
 
         // Monitor
-        mRobotFirebaseRef.child("monitor").addValueEventListener(new ValueEventListener() {
+        mMonitorValueEventListener = mRobotFirebaseRef.child("monitor").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mMonitorChangeListener != null) {
-                    mMonitorChangeListener.onMonitorChanged(new Monitor(dataSnapshot));
+                mMonitor = new Monitor(dataSnapshot);
+                Log.d(MainActivity.TAG, "Monitor values changed:  " + mMonitor);
+                if (mMonitorDelegate != null) {
+                    mMonitorDelegate.onMonitorChanged(mMonitor);
                 }
             }
 
@@ -66,11 +93,13 @@ public class FirebaseState {
         });
 
         // Commands
-        mRobotFirebaseRef.child("commands").addValueEventListener(new ValueEventListener() {
+        mCommandsValueEventListener = mRobotFirebaseRef.child("commands").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mCommandsChangeListener != null) {
-                    mCommandsChangeListener.onCommandsChanged(new Commands(dataSnapshot));
+                mCommands = new Commands(dataSnapshot);
+                Log.d(MainActivity.TAG, "Commands changed:  " + mCommands);
+                if (mCommandsDelegate != null) {
+                    mCommandsDelegate.onCommandsChanged(mCommands);
                 }
             }
 
@@ -79,17 +108,43 @@ public class FirebaseState {
         });
 
         // Modes
-        mRobotFirebaseRef.child("modes").addValueEventListener(new ValueEventListener() {
+        mModesValueEventListener = mRobotFirebaseRef.child("modes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mModesChangeListener != null) {
-                    mModesChangeListener.onModesChanged(new Modes(dataSnapshot));
+                mModes = new Modes(dataSnapshot);
+                Log.d(MainActivity.TAG, "Modes changed:  " + mModes);
+                if (mModesDelegate != null) {
+                    mModesDelegate.onModesChanged(mModes);
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) { }
         });
+    }
+
+    /**
+     * Completely clears the state of the FirebaseState
+     */
+    private void reset() {
+        Log.d(MainActivity.TAG, "Clear the old Firebase ref listeners and delegates");
+        // Remove all of the internal listeners.
+        if (mParamsValueEventListener != null && mCommandsValueEventListener != null &&
+                mMonitorValueEventListener != null && mModesValueEventListener != null &&
+                mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.removeEventListener(mParamsValueEventListener);
+            mRobotFirebaseRef.removeEventListener(mMonitorValueEventListener);
+            mRobotFirebaseRef.removeEventListener(mCommandsValueEventListener);
+            mRobotFirebaseRef.removeEventListener(mModesValueEventListener);
+        }
+
+        // Remove all of the external Fragment listener connections.
+        mParamsDelegate = null;
+        mMonitorDelegate = null;
+        mModesDelegate = null;
+        mCommandsDelegate = null;
+
+        mRobotFirebaseRef = null;
     }
 
 
@@ -109,19 +164,28 @@ public class FirebaseState {
         void onCommandsChanged(Commands commands);
     }
 
-    public void setParamsChangeListener(ParamsChangeListener paramsChangeListener) {
-        mParamsChangeListener = paramsChangeListener;
+    public void setParamsDelegate(ParamsChangeListener paramsChangeListener) {
+        mParamsDelegate = paramsChangeListener;
     }
 
-    public void setMonitorChangeListener(MonitorChangeListener monitorChangeListener) {
-        mMonitorChangeListener = monitorChangeListener;
+    public void setMonitorDelegate(MonitorChangeListener monitorChangeListener) {
+        mMonitorDelegate = monitorChangeListener;
     }
 
-    public void setModesChangeListener(ModesChangeListener modesChangeListener) {
-        mModesChangeListener = modesChangeListener;
+    public void setModesDelegate(ModesChangeListener modesChangeListener) {
+        mModesDelegate = modesChangeListener;
     }
 
-    public void setCommandsChangeListener(CommandsChangeListener commandsChangeListener) {
-        mCommandsChangeListener = commandsChangeListener;
+    public void setCommandsDelegate(CommandsChangeListener commandsChangeListener) {
+        mCommandsDelegate = commandsChangeListener;
+    }
+
+    @Override
+    public String toString() {
+        if (mRobotFirebaseRef == null) {
+            return "Firebase State is not initialized yet.";
+        } else {
+            return "Firebase State is pointing to " + mRobotFirebaseRef.toString();
+        }
     }
 }

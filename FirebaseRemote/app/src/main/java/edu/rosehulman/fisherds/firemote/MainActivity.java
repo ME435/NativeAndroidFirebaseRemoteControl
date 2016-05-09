@@ -13,15 +13,16 @@ import android.view.MenuItem;
 
 import edu.rosehulman.fisherds.firemote.fragments.CompetitionFragment;
 import edu.rosehulman.fisherds.firemote.fragments.FirebasePathFragment;
-import edu.rosehulman.fisherds.firemote.fragments.ManualDriveFragment;
 import edu.rosehulman.fisherds.firemote.fragments.ObserveOnlyFragment;
 import edu.rosehulman.fisherds.firemote.fragments.ParamsFragment;
 import edu.rosehulman.fisherds.firemote.fragments.RobotTestingFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FirebasePathFragment.OnFirebasePathSetListener {
 
     public static final String TAG = "FirebaseRobotRemote";
+
+    private FirebaseState mFirebaseState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mFirebaseState = new FirebaseState(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, new FirebasePathFragment());
+            ft.add(R.id.fragment_container, FirebasePathFragment.newInstance(mFirebaseState));
             ft.commit();
         }
     }
@@ -73,22 +76,22 @@ public class MainActivity extends AppCompatActivity
         Fragment switchTo = null;
         switch (item.getItemId()) {
             case R.id.nav_set_url:
-                switchTo = new FirebasePathFragment();
+                switchTo = FirebasePathFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_observer:
-                switchTo = new ObserveOnlyFragment();
+                switchTo = ObserveOnlyFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_manual_drive:
-                switchTo = new ManualDriveFragment();
+                switchTo = RobotTestingFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_testing:
-                switchTo = new RobotTestingFragment();
+                switchTo = RobotTestingFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_competition:
-                switchTo = new CompetitionFragment();
+                switchTo = CompetitionFragment.newInstance(mFirebaseState);
                 break;
             case R.id.nav_params:
-                switchTo = new ParamsFragment();
+                switchTo = ParamsFragment.newInstance(mFirebaseState);
                 break;
         }
 
@@ -99,5 +102,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public FirebaseState getFirebaseState() {
+        return mFirebaseState;
+    }
+
+    @Override
+    public void onFirebasePathSet() {
+        // Automatically go somewhere new. :)
+        Fragment switchTo = ParamsFragment.newInstance(mFirebaseState);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, switchTo);
+        ft.commit();
     }
 }

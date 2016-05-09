@@ -58,4 +58,10 @@ public class Params {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("Drive Straight - L: %1$d R: %2$d   Target - H: %3$d S: %4$d V: %5$d  Range - H: %6$d S: %7$d V: %8$d",
+                leftDutyCycle, rightDutyCycle, targetH, targetS, targetV, rangeH, rangeS, rangeV);
+    }
 }
