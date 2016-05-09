@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/nav_set_url"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Set Firebase Path" />
+
     <item android:title="For Anyone">
         <menu>
-            <item
-                android:id="@+id/nav_set_url"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Set Firebase Path" />
             <item
                 android:id="@+id/nav_observer"
                 android:icon="@drawable/ic_menu_slideshow"
@@ -14,7 +15,7 @@
         </menu>
     </item>
 
-    <item android:title="For Robot Team Only">
+    <item android:title="Robot Team Only">
         <menu>
             <item
                 android:id="@+id/nav_manual_drive"
@@ -28,6 +29,10 @@
                 android:id="@+id/nav_competition"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Competition" />
+            <item
+                android:id="@+id/nav_params"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Params" />
         </menu>
     </item>
 </menu>
