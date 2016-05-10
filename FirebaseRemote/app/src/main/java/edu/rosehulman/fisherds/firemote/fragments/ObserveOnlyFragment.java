@@ -36,7 +36,10 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
      * TextViews that can change values.
      */
     private TextView mCurrentStateTextView, mStateTimeTextView, mGpsInfoTextView, mSensorOrientationTextView,
-            mGuessXYTextView, mLeftDutyCycleTextView, mRightDutyCycleTextView, mMatchTimeTextView;
+            mLeftDutyCycleTextView, mRightDutyCycleTextView, mMatchTimeTextView;
+    private TextView mLeftRightLocationTextView, mTopBottomLocationTextView, mSizePercentageTextView;
+
+
     public ObserveOnlyFragment() {
     }
 
@@ -49,7 +52,6 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         getFirebaseState().setMonitorDelegate(this);
     }
 
@@ -58,7 +60,6 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_observe_only, container, false);
-
         mBallImageButtons = new ImageButton[]{(ImageButton) view.findViewById(R.id.location_1_image_button),
                 (ImageButton) view.findViewById(R.id.location_2_image_button),
                 (ImageButton) view.findViewById(R.id.location_3_image_button)};
@@ -66,11 +67,14 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
         mStateTimeTextView = (TextView) view.findViewById(R.id.state_time_textview);
         mGpsInfoTextView = (TextView) view.findViewById(R.id.gps_info_textview);
         mSensorOrientationTextView = (TextView) view.findViewById(R.id.orientation_textview);
-        mGuessXYTextView = (TextView) view.findViewById(R.id.guess_location_textview);
         mLeftDutyCycleTextView = (TextView) view.findViewById(R.id.left_duty_cycle_textview);
         mRightDutyCycleTextView = (TextView) view.findViewById(R.id.right_duty_cycle_textview);
         mMatchTimeTextView = (TextView) view.findViewById(R.id.match_time_textview);
+        mLeftRightLocationTextView = (TextView)view.findViewById(R.id.left_right_location_value);
+        mTopBottomLocationTextView = (TextView)view.findViewById(R.id.top_bottom_location_value);
+        mSizePercentageTextView = (TextView)view.findViewById(R.id.size_percentage_value);
 
+        updateView(getFirebaseState().getMonitor());
         return view;
     }
 
@@ -80,6 +84,41 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     }
 
     private void updateView(Monitor monitor) {
-//        mCurrentStateTextView.setText(monitor.state);
+        for (int i = 0; i < 3; i++) {
+            Monitor.BallColor ballColor = monitor.golfBallColors[i];
+            mBallImageButtons[i].setImageResource(BALL_DRAWABLE_RESOURCES[ballColor.ordinal()]);
+        }
+        mCurrentStateTextView.setText(monitor.state);
+        mStateTimeTextView.setText("" + (monitor.stateTimeMs / 1000));
+
+        // GPS info as 1 line
+        String gpsInfo = getString(R.string.xy_format, monitor.gpsX, monitor.gpsY);
+        if (monitor.gpsHeading <= 180.0 && monitor.gpsHeading > -180.0) {
+            gpsInfo += " " + getString(R.string.degrees_format, monitor.gpsHeading);
+        } else {
+            gpsInfo += " ?º";
+        }
+        gpsInfo += "    " + monitor.gpsHeadingCount + "/" + monitor.gpsTotalCount;
+        mGpsInfoTextView.setText(gpsInfo);
+        mSensorOrientationTextView.setText(getString(R.string.degrees_format, monitor.sensorHeading));
+        if (monitor.coneFound) {
+            mLeftRightLocationTextView.setText(String.format("%.3f", monitor.coneLeftRight));
+            mTopBottomLocationTextView.setText(String.format("%.3f", monitor.coneTopBottom));
+            mSizePercentageTextView.setText(String.format("%.5f", monitor.coneSizePercentage));
+        } else {
+            mLeftRightLocationTextView.setText("---");
+            mTopBottomLocationTextView.setText("---");
+            mSizePercentageTextView.setText("---");
+        }
+
+
+
+        mLeftDutyCycleTextView.setText("Left\n" + monitor.leftDutyCycle);
+        mRightDutyCycleTextView.setText("Right\n" + monitor.rightDutyCycle);
+        if (monitor.state.equalsIgnoreCase("READY_FOR_MISSION")) {
+            mMatchTimeTextView.setText("5:00");
+        } else {
+            mMatchTimeTextView.setText(monitor.matchTime);
+        }
     }
 }

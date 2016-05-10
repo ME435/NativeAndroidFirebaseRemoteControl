@@ -47,7 +47,7 @@
 
     <TextView
         android:id="@+id/state_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@id/golf_ball_buttons"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -56,14 +56,14 @@
 
     <TextView
         android:id="@+id/current_state_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignBaseline="@id/state_label"
         android:layout_toRightOf="@id/state_label"
         android:text="---" />
 
     <TextView
         android:id="@+id/state_time_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@+id/state_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
@@ -71,14 +71,14 @@
 
     <TextView
         android:id="@+id/state_time_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignBaseline="@id/state_time_label"
         android:layout_toRightOf="@id/state_label"
         android:text="---" />
 
     <TextView
         android:id="@+id/gps_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@+id/state_time_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
@@ -86,14 +86,14 @@
 
     <TextView
         android:id="@+id/gps_info_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignBaseline="@id/gps_label"
         android:layout_toRightOf="@id/state_label"
         android:text="---" />
 
     <TextView
         android:id="@+id/orientation_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@+id/gps_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
@@ -101,38 +101,23 @@
 
     <TextView
         android:id="@+id/orientation_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignBaseline="@id/orientation_label"
-        android:layout_toRightOf="@id/state_label"
-        android:text="---" />
-
-    <TextView
-        android:id="@+id/guess_location_label"
-        style="@style/DisplayText"
-        android:layout_below="@+id/orientation_label"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Guess XY:" />
-
-    <TextView
-        android:id="@+id/guess_location_textview"
-        style="@style/DisplayText"
-        android:layout_alignBaseline="@id/guess_location_label"
         android:layout_toRightOf="@id/state_label"
         android:text="---" />
 
 
     <TextView
         android:id="@+id/left_right_location_label"
-        style="@style/DisplayText"
-        android:layout_below="@id/guess_location_label"
+        style="@style/DisplayText.Small"
+        android:layout_below="@id/orientation_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:text="Left/Right Location" />
 
     <TextView
         android:id="@+id/left_right_location_value"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignBaseline="@id/left_right_location_label"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
@@ -140,7 +125,7 @@
 
     <TextView
         android:id="@+id/top_bottom_location_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@id/left_right_location_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
@@ -151,12 +136,12 @@
         android:layout_alignBaseline="@id/top_bottom_location_label"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:text="---" />
 
     <TextView
         android:id="@+id/size_percentage_label"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_below="@id/top_bottom_location_label"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
@@ -167,12 +152,12 @@
         android:layout_alignBaseline="@id/size_percentage_label"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:text="---" />
 
     <TextView
         android:id="@+id/right_duty_cycle_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
@@ -182,7 +167,7 @@
 
     <TextView
         android:id="@+id/left_duty_cycle_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="10dp"
@@ -191,7 +176,7 @@
 
     <TextView
         android:id="@+id/match_time_textview"
-        style="@style/DisplayText"
+        style="@style/DisplayText.Small"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
