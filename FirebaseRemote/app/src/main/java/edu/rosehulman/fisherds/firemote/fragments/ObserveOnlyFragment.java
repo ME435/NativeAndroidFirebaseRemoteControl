@@ -84,41 +84,40 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     }
 
     private void updateView(Monitor monitor) {
-        for (int i = 0; i < 3; i++) {
-            Monitor.BallColor ballColor = monitor.golfBallColors[i];
-            mBallImageButtons[i].setImageResource(BALL_DRAWABLE_RESOURCES[ballColor.ordinal()]);
-        }
-        mCurrentStateTextView.setText(monitor.state);
-        mStateTimeTextView.setText("" + (monitor.stateTimeMs / 1000));
+        if (monitor != null) {
+            for (int i = 0; i < 3; i++) {
+                Monitor.BallColor ballColor = monitor.golfBallColors[i];
+                mBallImageButtons[i].setImageResource(BALL_DRAWABLE_RESOURCES[ballColor.ordinal()]);
+            }
+            mCurrentStateTextView.setText(monitor.state);
+            mStateTimeTextView.setText("" + (monitor.stateTimeMs / 1000));
 
-        // GPS info as 1 line
-        String gpsInfo = getString(R.string.xy_format, monitor.gpsX, monitor.gpsY);
-        if (monitor.gpsHeading <= 180.0 && monitor.gpsHeading > -180.0) {
-            gpsInfo += " " + getString(R.string.degrees_format, monitor.gpsHeading);
-        } else {
-            gpsInfo += " ?º";
-        }
-        gpsInfo += "    " + monitor.gpsHeadingCount + "/" + monitor.gpsTotalCount;
-        mGpsInfoTextView.setText(gpsInfo);
-        mSensorOrientationTextView.setText(getString(R.string.degrees_format, monitor.sensorHeading));
-        if (monitor.coneFound) {
-            mLeftRightLocationTextView.setText(String.format("%.3f", monitor.coneLeftRight));
-            mTopBottomLocationTextView.setText(String.format("%.3f", monitor.coneTopBottom));
-            mSizePercentageTextView.setText(String.format("%.5f", monitor.coneSizePercentage));
-        } else {
-            mLeftRightLocationTextView.setText("---");
-            mTopBottomLocationTextView.setText("---");
-            mSizePercentageTextView.setText("---");
-        }
-
-
-
-        mLeftDutyCycleTextView.setText("Left\n" + monitor.leftDutyCycle);
-        mRightDutyCycleTextView.setText("Right\n" + monitor.rightDutyCycle);
-        if (monitor.state.equalsIgnoreCase("READY_FOR_MISSION")) {
-            mMatchTimeTextView.setText("5:00");
-        } else {
-            mMatchTimeTextView.setText(monitor.matchTime);
+            // GPS info as 1 line
+            String gpsInfo = getString(R.string.xy_format, monitor.gpsX, monitor.gpsY);
+            if (monitor.gpsHeading <= 180.0 && monitor.gpsHeading > -180.0) {
+                gpsInfo += " " + getString(R.string.degrees_format, monitor.gpsHeading);
+            } else {
+                gpsInfo += " ?º";
+            }
+            gpsInfo += "    " + monitor.gpsHeadingCount + "/" + monitor.gpsTotalCount;
+            mGpsInfoTextView.setText(gpsInfo);
+            mSensorOrientationTextView.setText(getString(R.string.degrees_format, monitor.sensorHeading));
+            if (monitor.coneFound) {
+                mLeftRightLocationTextView.setText(String.format("%.3f", monitor.coneLeftRight));
+                mTopBottomLocationTextView.setText(String.format("%.3f", monitor.coneTopBottom));
+                mSizePercentageTextView.setText(String.format("%.5f", monitor.coneSizePercentage));
+            } else {
+                mLeftRightLocationTextView.setText("---");
+                mTopBottomLocationTextView.setText("---");
+                mSizePercentageTextView.setText("---");
+            }
+            mLeftDutyCycleTextView.setText("Left\n" + monitor.leftDutyCycle);
+            mRightDutyCycleTextView.setText("Right\n" + monitor.rightDutyCycle);
+            if (monitor.state.equalsIgnoreCase("READY_FOR_MISSION")) {
+                mMatchTimeTextView.setText("5:00");
+            } else {
+                mMatchTimeTextView.setText(monitor.matchTime);
+            }
         }
     }
 }

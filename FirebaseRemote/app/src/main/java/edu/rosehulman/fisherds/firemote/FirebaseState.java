@@ -181,6 +181,17 @@ public class FirebaseState {
         }
     }
 
+    public void setFrozenMode(boolean frozen) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("modes").child("frozen").setValue(frozen);
+        }
+    }
+
+    public void setAutonomousMode(boolean autonomous) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("modes").child("autonomous").setValue(autonomous);
+        }
+    }
 
     public interface ParamsChangeListener {
         void onParamsChanged(Params params);

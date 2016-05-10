@@ -108,6 +108,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public FirebaseState getFirebaseState() {
+        if (mFirebaseState == null) {
+            // Only happens on instant runs during development.
+            mFirebaseState = new FirebaseState(this);
+        }
         return mFirebaseState;
     }
 
