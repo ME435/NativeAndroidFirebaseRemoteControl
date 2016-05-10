@@ -61,41 +61,41 @@ public class Monitor {
     }
 
     public boolean setMonitorFromDataSnapshot(DataSnapshot dataSnapshot) {
-//        try {
-        Map<String, Object> monitorMap = (Map<String, Object>) dataSnapshot.getValue();
-        state = (String) monitorMap.get("state");
-        Map<String, String> golfBallMap = (Map<String, String>) monitorMap.get("golfBallColors");
-        Map<String, Object> gpsMap = (Map<String, Object>) monitorMap.get("gps");
-        Map<String, Object> imgRecMap = (Map<String, Object>) monitorMap.get("imgRec");
-        Map<String, Double> orientationMap = (Map<String, Double>) monitorMap.get("orientation");
-        Map<String, Object> timeMap = (Map<String, Object>) monitorMap.get("time");
-        Map<String, Long> wheelSpeedMap = (Map<String, Long>) monitorMap.get("wheelSpeed");
+        try {
+            Map<String, Object> monitorMap = (Map<String, Object>) dataSnapshot.getValue();
+            state = (String) monitorMap.get("state");
+            Map<String, String> golfBallMap = (Map<String, String>) monitorMap.get("golfBallColors");
+            Map<String, Object> gpsMap = (Map<String, Object>) monitorMap.get("gps");
+            Map<String, Object> imgRecMap = (Map<String, Object>) monitorMap.get("imgRec");
+            Map<String, Double> orientationMap = (Map<String, Double>) monitorMap.get("orientation");
+            Map<String, Object> timeMap = (Map<String, Object>) monitorMap.get("time");
+            Map<String, Long> wheelSpeedMap = (Map<String, Long>) monitorMap.get("wheelSpeed");
 
-        gpsHeading = ((Double)gpsMap.get("gpsHeading")).doubleValue();
-        gpsX = ((Double)gpsMap.get("x")).doubleValue();
-        gpsY = ((Double)gpsMap.get("y")).doubleValue();
-        gpsHeadingCount = ((Long)gpsMap.get("headingCount")).intValue();
-        gpsTotalCount = ((Long)gpsMap.get("totalCount")).intValue();
-        coneFound =  ((Boolean)imgRecMap.get("found")).booleanValue();
-        coneLeftRight = ((Double)imgRecMap.get("leftRight")).doubleValue();
-        coneTopBottom = ((Double)imgRecMap.get("topBottom")).doubleValue();
-        coneSizePercentage = ((Double)imgRecMap.get("size")).doubleValue();
-        sensorHeading = ((Double)orientationMap.get("sensorHeading")).doubleValue();
-        stateTimeMs = ((Long)timeMap.get("stateTimeMs")).longValue();
-        matchTime = ((String)timeMap.get("matchTime"));
-        leftDutyCycle = ((Long)wheelSpeedMap.get("leftDutyCycle")).intValue();
-        rightDutyCycle = ((Long)wheelSpeedMap.get("rightDutyCycle")).intValue();
-        String location1Color = golfBallMap.get("location1");
-        String location2Color = golfBallMap.get("location2");
-        String location3Color = golfBallMap.get("location3");
-        golfBallColors[0] = BallColor.valueOf(location1Color);
-        golfBallColors[1] = BallColor.valueOf(location2Color);
-        golfBallColors[2] = BallColor.valueOf(location3Color);
-        Log.d(MainActivity.TAG, "Successfully received the monitor values from Firebase");
-        return true;
-//        } catch (Exception e) {
-//            Log.e(MainActivity.TAG, "Loading monitor failed.  No monitor values were set.");
-//            return false;
-//        }
+            gpsHeading = ((Double)gpsMap.get("gpsHeading")).doubleValue();
+            gpsX = ((Double)gpsMap.get("x")).doubleValue();
+            gpsY = ((Double)gpsMap.get("y")).doubleValue();
+            gpsHeadingCount = ((Long)gpsMap.get("headingCount")).intValue();
+            gpsTotalCount = ((Long)gpsMap.get("totalCount")).intValue();
+            coneFound =  ((Boolean)imgRecMap.get("found")).booleanValue();
+            coneLeftRight = ((Double)imgRecMap.get("leftRight")).doubleValue();
+            coneTopBottom = ((Double)imgRecMap.get("topBottom")).doubleValue();
+            coneSizePercentage = ((Double)imgRecMap.get("size")).doubleValue();
+            sensorHeading = ((Double)orientationMap.get("sensorHeading")).doubleValue();
+            stateTimeMs = ((Long)timeMap.get("stateTimeMs")).longValue();
+            matchTime = ((String)timeMap.get("matchTime"));
+            leftDutyCycle = ((Long)wheelSpeedMap.get("leftDutyCycle")).intValue();
+            rightDutyCycle = ((Long)wheelSpeedMap.get("rightDutyCycle")).intValue();
+            String location1Color = golfBallMap.get("location1");
+            String location2Color = golfBallMap.get("location2");
+            String location3Color = golfBallMap.get("location3");
+            golfBallColors[0] = BallColor.valueOf(location1Color);
+            golfBallColors[1] = BallColor.valueOf(location2Color);
+            golfBallColors[2] = BallColor.valueOf(location3Color);
+            Log.d(MainActivity.TAG, "Successfully received the monitor values from Firebase");
+            return true;
+        } catch (Exception e) {
+            Log.e(MainActivity.TAG, "Loading monitor failed.  No monitor values were set.");
+            return false;
+        }
     }
 }

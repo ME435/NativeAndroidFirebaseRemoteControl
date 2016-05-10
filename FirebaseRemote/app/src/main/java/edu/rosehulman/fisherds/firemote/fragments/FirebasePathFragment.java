@@ -44,6 +44,11 @@ public class FirebasePathFragment extends BaseFragment {
         Log.d(MainActivity.TAG, "Creating the view for the Firebase path");
         mFirebaseUrlEditText = (EditText)view.findViewById(R.id.firebase_url_edittext);
         mRobotNameEditText = (EditText)view.findViewById(R.id.robot_name_edittext);
+
+        // Prepopulate with the last values used.
+        mFirebaseUrlEditText.setText(((MainActivity)getActivity()).getBaseUrl());
+        mRobotNameEditText.setText(((MainActivity)getActivity()).getRobotName());
+
         Button setUrl = (Button)view.findViewById(R.id.set_firebase_url);
 
         setUrl.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +59,7 @@ public class FirebasePathFragment extends BaseFragment {
                 getFirebaseState().initialize(urlBase, robotName);
                 if (mListener != null) {
                     Toast.makeText(FirebasePathFragment.this.getActivity(), "Select a remote", Toast.LENGTH_SHORT).show();
-                    mListener.onFirebasePathSet();
+                    mListener.onFirebasePathSet(urlBase, robotName);
                 }
             }
         });
@@ -91,6 +96,6 @@ public class FirebasePathFragment extends BaseFragment {
      * Communicating with Other Fragments for more information.
      */
     public interface OnFirebasePathSetListener {
-        void onFirebasePathSet();
+        void onFirebasePathSet(String urlBase, String robotName);
     }
 }

@@ -1,5 +1,6 @@
 package edu.rosehulman.fisherds.firemote;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -116,14 +117,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFirebasePathSet() {
+    public void onFirebasePathSet(String urlBase, String robotName) {
         // Automatically go somewhere new. :)
         Fragment switchTo = ParamsFragment.newInstance();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, switchTo);
         ft.commit();
 
+        setFirebasePathValues(urlBase, robotName);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.openDrawer(GravityCompat.START);
     }
+
+    // ------------------------------------ Data Persistence ------------------------------------
+    public static final String URL_BASE_KEY = "url_base_key";
+    public static final String ROBOT_NAME_KEY = "robot_name_key";
+
+
+    public void setFirebasePathValues(String urlBase, String robotName) {
+        getPreferences(Activity.MODE_PRIVATE).edit().putString(URL_BASE_KEY, urlBase).commit();
+        getPreferences(Activity.MODE_PRIVATE).edit().putString(ROBOT_NAME_KEY, robotName).commit();
+    }
+
+    public String getBaseUrl() {
+        return getPreferences(Activity.MODE_PRIVATE).getString(URL_BASE_KEY, "fisherds-robotwebremote");
+    }
+
+    public String getRobotName() {
+        return getPreferences(Activity.MODE_PRIVATE).getString(ROBOT_NAME_KEY, "elmo");
+    }
+
 }
