@@ -52,9 +52,13 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFirebaseState().setMonitorDelegate(this);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getFirebaseState().setMonitorDelegate(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +85,11 @@ public class ObserveOnlyFragment extends BaseFragment implements FirebaseState.M
     @Override
     public void onMonitorChanged(Monitor monitor) {
         updateView(monitor);
+
+        // This fragment is often contained in another fragment.  Pass along the monitor updates.
+        if (getParentFragment() instanceof FirebaseState.MonitorChangeListener) {
+            ((FirebaseState.MonitorChangeListener) getParentFragment()).onMonitorChanged(monitor);
+        }
     }
 
     private void updateView(Monitor monitor) {
