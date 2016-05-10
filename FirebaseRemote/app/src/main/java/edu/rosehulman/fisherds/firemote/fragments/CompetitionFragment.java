@@ -24,19 +24,16 @@ public class CompetitionFragment extends BaseFragment implements FirebaseState.M
         // Required empty public constructor
     }
 
-    public static CompetitionFragment newInstance(FirebaseState firebaseState) {
+    public static CompetitionFragment newInstance() {
         CompetitionFragment fragment = new CompetitionFragment();
-
-        // Note: The recommended patern is to use the arguments and recover them in onCreate
-        //  I didn't want to do that because I wanted an object.
-        fragment.setFirebaseState(firebaseState);
+        // Custom initialization.
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseState.setModesDelegate(this);
+        getFirebaseState().setModesDelegate(this);
     }
 
 

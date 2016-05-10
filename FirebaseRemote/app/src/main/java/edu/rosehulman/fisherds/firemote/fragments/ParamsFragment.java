@@ -21,19 +21,16 @@ public class ParamsFragment extends BaseFragment implements FirebaseState.Params
         // Required empty public constructor
     }
 
-    public static ParamsFragment newInstance(FirebaseState firebaseState) {
+    public static ParamsFragment newInstance() {
         ParamsFragment fragment = new ParamsFragment();
-
-        // Note: The recommended patern is to use the arguments and recover them in onCreate
-        //  I didn't want to do that because I wanted an object.
-        fragment.setFirebaseState(firebaseState);
+        // Spot for custom initialization.
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseState.setParamsDelegate(this);
+        getFirebaseState().setParamsDelegate(this);
     }
 
     @Override
@@ -52,7 +49,7 @@ public class ParamsFragment extends BaseFragment implements FirebaseState.Params
         mRangeSTextView = (TextView)view.findViewById(R.id.imgrec_range_s_textview);
         mRangeVTextView = (TextView)view.findViewById(R.id.imgrec_range_v_textview);
 
-        updateView(mFirebaseState.getParams());
+        updateView(getFirebaseState().getParams());
         return view;
     }
 

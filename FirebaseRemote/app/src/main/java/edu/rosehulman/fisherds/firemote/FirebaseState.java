@@ -143,6 +143,10 @@ public class FirebaseState {
             mRobotFirebaseRef.removeEventListener(mModesValueEventListener);
             Log.d(MainActivity.TAG, "All listeners were removed");
         }
+        mParamsValueEventListener = null;
+        mMonitorValueEventListener = null;
+        mCommandsValueEventListener = null;
+        mModesValueEventListener = null;
 
         // Remove all of the external Fragment listener connections.
         mParamsDelegate = null;
@@ -151,6 +155,30 @@ public class FirebaseState {
         mCommandsDelegate = null;
 
         mRobotFirebaseRef = null;
+    }
+
+    public void setSendWheelSpeed(String speedStr) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("commands").child("sendWheelSpeed").setValue(speedStr);
+        }
+    }
+
+    public void setSendCommand(String commandToSend) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("commands").child("sendCommand").setValue(commandToSend);
+        }
+    }
+
+    public void setPressButton(String buttonName) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("commands").child("pressButton").setValue(buttonName);
+        }
+    }
+
+    public void setCustom(String customMessage) {
+        if (mRobotFirebaseRef != null) {
+            mRobotFirebaseRef.child("commands").child("custom").setValue(customMessage);
+        }
     }
 
 

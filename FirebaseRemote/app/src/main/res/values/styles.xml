@@ -45,14 +45,14 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textColor">#DDD</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <style name="WheelSpeedButton" parent="@android:style/Widget.Button">
-        <item name="android:layout_width">130dp</item>
-        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textColor">#DDD</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="ColorButton.HorzLinearLayout">

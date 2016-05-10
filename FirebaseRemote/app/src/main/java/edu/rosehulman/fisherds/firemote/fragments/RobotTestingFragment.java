@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.rosehulman.fisherds.firemote.FirebaseState;
 import edu.rosehulman.fisherds.firemote.R;
 
 
@@ -21,12 +20,9 @@ public class RobotTestingFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static RobotTestingFragment newInstance(FirebaseState firebaseState) {
+    public static RobotTestingFragment newInstance() {
         RobotTestingFragment fragment = new RobotTestingFragment();
-
-        // Note: The recommended patern is to use the arguments and recover them in onCreate
-        //  I didn't want to do that because I wanted an object.
-        fragment.setFirebaseState(firebaseState);
+        // Spot for custom initialization.
         return fragment;
     }
 

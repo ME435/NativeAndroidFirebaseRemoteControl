@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.fragment_container, FirebasePathFragment.newInstance(mFirebaseState));
+            ft.add(R.id.fragment_container, FirebasePathFragment.newInstance());
             ft.commit();
         }
     }
@@ -77,22 +77,22 @@ public class MainActivity extends AppCompatActivity
         Fragment switchTo = null;
         switch (item.getItemId()) {
             case R.id.nav_set_url:
-                switchTo = FirebasePathFragment.newInstance(mFirebaseState);
+                switchTo = FirebasePathFragment.newInstance();
                 break;
             case R.id.nav_observer:
-                switchTo = ObserveOnlyFragment.newInstance(mFirebaseState);
+                switchTo = ObserveOnlyFragment.newInstance();
                 break;
             case R.id.nav_manual_drive:
-                switchTo = ManualDriveFragment.newInstance(mFirebaseState);
+                switchTo = ManualDriveFragment.newInstance();
                 break;
             case R.id.nav_testing:
-                switchTo = RobotTestingFragment.newInstance(mFirebaseState);
+                switchTo = RobotTestingFragment.newInstance();
                 break;
             case R.id.nav_competition:
-                switchTo = CompetitionFragment.newInstance(mFirebaseState);
+                switchTo = CompetitionFragment.newInstance();
                 break;
             case R.id.nav_params:
-                switchTo = ParamsFragment.newInstance(mFirebaseState);
+                switchTo = ParamsFragment.newInstance();
                 break;
         }
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFirebasePathSet() {
         // Automatically go somewhere new. :)
-        Fragment switchTo = ParamsFragment.newInstance(mFirebaseState);
+        Fragment switchTo = ParamsFragment.newInstance();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, switchTo);
         ft.commit();

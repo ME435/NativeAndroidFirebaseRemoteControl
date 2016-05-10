@@ -25,8 +25,7 @@
             android:background="@drawable/red_button"
             style="@style/WheelSpeedButton"
             android:layout_centerInParent="true"
-            android:text="Stop"
-            android:onClick="handleStopClick" />
+            android:text="Stop" />
 
         <Button
             android:id="@+id/wheel_speed_forward_button"
@@ -34,8 +33,7 @@
             android:layout_above="@id/wheel_speed_stop_button"
             android:layout_centerHorizontal="true"
             android:background="@drawable/black_button"
-            android:text="Forward"
-            android:onClick="handleForwardClick" />
+            android:text="Forward" />
 
         <Button
             android:id="@+id/wheel_speed_reverse_button"
@@ -43,8 +41,7 @@
             android:layout_below="@id/wheel_speed_stop_button"
             android:layout_centerHorizontal="true"
             android:background="@drawable/black_button"
-            android:text="Back"
-            android:onClick="handleBackClick" />
+            android:text="Back" />
 
         <Button
             android:id="@+id/wheel_speed_left_button"
@@ -52,8 +49,7 @@
             android:layout_alignTop="@id/wheel_speed_forward_button"
             android:layout_toLeftOf="@id/wheel_speed_stop_button"
             android:background="@drawable/black_button"
-            android:text="Left"
-            android:onClick="handleLeftClick" />
+            android:text="Left" />
 
         <Button
             android:id="@+id/wheel_speed_right_button"
@@ -61,39 +57,56 @@
             android:layout_toRightOf="@id/wheel_speed_stop_button"
             android:layout_alignTop="@id/wheel_speed_forward_button"
             style="@style/WheelSpeedButton"
-            android:text="Right"
-            android:onClick="handleRightClick" />
-
-        <Button
-            android:id="@+id/speed_plus_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/black_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="#2FF"
-            android:text="Speed++"
-            android:onClick="handleBatteryClick" />
+            android:text="Right" />
 
         <TextView
+            android:id="@+id/speed_percentage_textview"
             style="@style/DisplayText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:text="100%"/>
 
-        <Button
-            android:id="@+id/speed_minus_button"
+        <TextView
+            android:id="@+id/speed_label"
+            style="@style/DisplayText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/black_button"
             android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@+id/speed_percentage_textview"
+            android:text="Speed"/>
+
+        <SeekBar
+            android:id="@+id/speed_seekbar"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
             android:layout_alignParentBottom="true"
-            android:textColor="#2FF"
-            android:text="Speed--"
-            android:onClick="handleBatteryClick" />
+            android:layout_toRightOf="@+id/speed_label"
+            android:layout_toLeftOf="@+id/speed_percentage_textview"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            style="@style/DisplayText"
+            android:layout_margin="10dp"
+            android:id="@+id/current_speed_left_duty_cycle_textview"
+            android:layout_alignBottom="@+id/wheel_speed_reverse_button"
+            android:layout_alignLeft="@+id/wheel_speed_left_button"
+            android:layout_alignStart="@+id/wheel_speed_left_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            style="@style/DisplayText"
+            android:layout_margin="10dp"
+            android:id="@+id/current_speed_right_duty_cycle_textview"
+            android:layout_alignBottom="@+id/wheel_speed_reverse_button"
+            android:layout_alignRight="@+id/speed_percentage_textview"
+            android:layout_alignEnd="@+id/speed_percentage_textview" />
 
     </RelativeLayout>
 
@@ -103,20 +116,20 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/position_home_button"
             android:background="@drawable/green_button"
             style="@style/ColorButton"
-            android:text="Home"
-            android:onClick="handleHomeClick" />
+            android:text="Home" />
         <Button
+            android:id="@+id/position1_button"
             android:background="@drawable/red_button"
             style="@style/ColorButton"
-            android:text="Position 1"
-            android:onClick="handlePosition1Click" />
+            android:text="Position 1" />
         <Button
+            android:id="@+id/position2_button"
             android:background="@drawable/red_button"
             style="@style/ColorButton"
-            android:text="Position 2"
-            android:onClick="handlePosition2Click" />
+            android:text="Position 2" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,20 +138,20 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/script1_button"
             android:background="@drawable/blue_button"
             style="@style/ColorButton"
-            android:text="Script 1"
-            android:onClick="handleScript1Click" />
+            android:text="Script 1"/>
         <Button
+            android:id="@+id/script2_button"
             android:background="@drawable/blue_button"
             style="@style/ColorButton"
-            android:text="Script 2"
-            android:onClick="handleScript2Click" />
+            android:text="Script 2" />
         <Button
+            android:id="@+id/script3_button"
             android:background="@drawable/blue_button"
             style="@style/ColorButton"
-            android:text="Script 3"
-            android:onClick="handleScript3Click" />
+            android:text="Script 3"/>
     </LinearLayout>
 
 
@@ -152,21 +165,18 @@
                 android:id="@+id/set_origin_button"
                 style="@style/ColorButton.HorzLinearLayout"
                 android:background="@drawable/yellow_button"
-                android:onClick="handleSetOrigin"
                 android:text="Set Origin" />
 
             <Button
                 android:id="@+id/set_x_axis_button"
                 style="@style/ColorButton.HorzLinearLayout"
                 android:background="@drawable/yellow_button"
-                android:onClick="handleSetXAxis"
                 android:text="Set X" />
 
             <Button
                 android:id="@+id/reset_heading_button"
                 style="@style/ColorButton.HorzLinearLayout"
                 android:background="@drawable/purple_button"
-                android:onClick="handleZeroHeading"
                 android:text="Heading 0" />
 
     </LinearLayout>

@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import edu.rosehulman.fisherds.firemote.FirebaseState;
 import edu.rosehulman.fisherds.firemote.MainActivity;
 import edu.rosehulman.fisherds.firemote.R;
 
@@ -29,12 +28,9 @@ public class FirebasePathFragment extends BaseFragment {
     }
 
 
-    public static FirebasePathFragment newInstance(FirebaseState firebaseState) {
+    public static FirebasePathFragment newInstance() {
         FirebasePathFragment fragment = new FirebasePathFragment();
-
-        // Note: The recommended patern is to use the arguments and recover them in onCreate
-        //  I didn't want to do that because I wanted an object.
-        fragment.setFirebaseState(firebaseState);
+        // Spot for custom initialization.
         return fragment;
     }
 
@@ -55,7 +51,7 @@ public class FirebasePathFragment extends BaseFragment {
             public void onClick(View v) {
                 String urlBase = mFirebaseUrlEditText.getText().toString();
                 String robotName = mRobotNameEditText.getText().toString();
-                mFirebaseState.initialize(urlBase, robotName);
+                getFirebaseState().initialize(urlBase, robotName);
                 if (mListener != null) {
                     Toast.makeText(FirebasePathFragment.this.getActivity(), "Select a remote", Toast.LENGTH_SHORT).show();
                     mListener.onFirebasePathSet();
