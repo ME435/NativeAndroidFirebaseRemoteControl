@@ -23,6 +23,7 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
 
     private Button mFreezeResumeButton;
     private Button mGoStopButton;
+    private boolean mCurrentFrozenState = false;
 
     public RobotTestingFragment() {
         // Required empty public constructor
@@ -58,7 +59,7 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
         mFreezeResumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFirebaseState().setFrozenMode(true);
+                getFirebaseState().setFrozenMode(!mCurrentFrozenState);
             }
         });
 
@@ -69,17 +70,36 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
             }
         });
 
+        // Load the initial state.
+        onModesChanged(getFirebaseState().getModes());
+        onMonitorChanged(getFirebaseState().getMonitor());
         return view;
     }
 
     @Override
     public void onModesChanged(Modes modes) {
-        // TODO: Update the Freeze/Resume button as appropriate.
+        if (modes != null) {
+            mCurrentFrozenState = modes.isFrozen;
+            if (modes.isFrozen) {
+                mFreezeResumeButton.setBackgroundResource(R.drawable.red_button);
+                mFreezeResumeButton.setText("Resume");
+            } else {
+                mFreezeResumeButton.setBackgroundResource(R.drawable.blue_button);
+                mFreezeResumeButton.setText("Freeze!");
+            }
+        }
     }
 
     @Override
     public void onMonitorChanged(Monitor monitor) {
-        // TODO: Update the Go/Stop button as appropriate.
-        // Only check to see if the state changed from READY_FOR_MISSION or not.
+        if (monitor != null) {
+            if (monitor.state.equalsIgnoreCase("READY_FOR_MISSION")) {
+                mGoStopButton.setBackgroundResource(R.drawable.green_button);
+                mGoStopButton.setText("Go!");
+            } else {
+                mGoStopButton.setBackgroundResource(R.drawable.red_button);
+                mGoStopButton.setText("Stop");
+            }
+        }
     }
 }
