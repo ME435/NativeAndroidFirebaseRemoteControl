@@ -30,6 +30,11 @@ public class ParamsFragment extends BaseFragment implements FirebaseState.Params
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         getFirebaseState().setParamsDelegate(this);
     }
 

@@ -10,13 +10,15 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import edu.rosehulman.fisherds.firemote.FirebaseState;
 import edu.rosehulman.fisherds.firemote.R;
+import edu.rosehulman.fisherds.firemote.models.Modes;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManualDriveFragment extends BaseFragment {
+public class ManualDriveFragment extends BaseFragment implements FirebaseState.ModesChangeListener {
 
     private int mSpeedPercentage = 100;
     public static final int MAX_DUTY_CYCLE = 255;
@@ -176,6 +178,12 @@ public class ManualDriveFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getFirebaseState().setModesDelegate(this);
+    }
+
     private void sendSpeed(int unscaledLeftDutyCycle, int unscaledRightDutyCycle) {
         int scaledLeftDC = unscaledLeftDutyCycle * mSpeedPercentage / 100;
         int scaledRightDC = unscaledRightDutyCycle * mSpeedPercentage / 100;
@@ -253,5 +261,10 @@ public class ManualDriveFragment extends BaseFragment {
     public void handleZeroHeading(View view) {
 //        Toast.makeText(ManualDriveFragment.this.getActivity(), "Set pressButton to setOrigin", Toast.LENGTH_SHORT).show();
         getFirebaseState().setPressButton("zeroHeading");
+    }
+
+    @Override
+    public void onModesChanged(Modes modes) {
+        // TODO: When either the frozen or autonomous modes are true disable buttons.
     }
 }

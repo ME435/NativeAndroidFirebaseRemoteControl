@@ -33,9 +33,13 @@ public class CompetitionFragment extends BaseFragment implements FirebaseState.M
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFirebaseState().setModesDelegate(this);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getFirebaseState().setModesDelegate(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

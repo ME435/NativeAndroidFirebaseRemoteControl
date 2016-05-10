@@ -25,6 +25,7 @@
             android:background="@drawable/red_button"
             style="@style/WheelSpeedButton"
             android:layout_centerInParent="true"
+            android:layout_height="50dp"
             android:text="Stop" />
 
         <Button

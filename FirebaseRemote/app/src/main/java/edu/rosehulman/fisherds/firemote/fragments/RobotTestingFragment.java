@@ -1,15 +1,18 @@
 package edu.rosehulman.fisherds.firemote.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import edu.rosehulman.fisherds.firemote.FirebaseState;
+import edu.rosehulman.fisherds.firemote.MainActivity;
 import edu.rosehulman.fisherds.firemote.R;
 import edu.rosehulman.fisherds.firemote.models.Modes;
 import edu.rosehulman.fisherds.firemote.models.Monitor;
@@ -38,10 +41,22 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFirebaseState().setMonitorDelegate(this);
-        getFirebaseState().setModesDelegate(this);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getFirebaseState().setModesDelegate(this);
+//        getFirebaseState().setMonitorDelegate(this);  // Would do nothing since the embedded fragment would steal the delegate anyway.
+        // Instead the ObserveOnlyFragment will call our onMonitorChanged method for us.
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(MainActivity.TAG, "Set the testing fragment listeners.");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +107,9 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
 
     @Override
     public void onMonitorChanged(Monitor monitor) {
+        Log.d(MainActivity.TAG, "Testing fragment monitor updated");
         if (monitor != null) {
+            Log.d(MainActivity.TAG, "state = " + monitor.state);
             if (monitor.state.equalsIgnoreCase("READY_FOR_MISSION")) {
                 mGoStopButton.setBackgroundResource(R.drawable.green_button);
                 mGoStopButton.setText("Go!");
