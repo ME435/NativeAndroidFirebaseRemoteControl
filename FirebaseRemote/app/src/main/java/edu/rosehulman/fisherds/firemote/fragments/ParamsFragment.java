@@ -39,6 +39,12 @@ public class ParamsFragment extends BaseFragment implements FirebaseState.Params
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        getFirebaseState().setParamsDelegate(null);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_params, container, false);

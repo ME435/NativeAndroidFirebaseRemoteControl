@@ -110,8 +110,9 @@ public class MainActivity extends AppCompatActivity
 
     public FirebaseState getFirebaseState() {
         if (mFirebaseState == null) {
-            // Only happens on instant runs during development.
+            // Only happens on instant runs during development.  Just try to fix it.
             mFirebaseState = new FirebaseState(this);
+            mFirebaseState.initialize(getBaseUrl(), getRobotName());
         }
         return mFirebaseState;
     }

@@ -1,7 +1,6 @@
 package edu.rosehulman.fisherds.firemote.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +21,6 @@ import edu.rosehulman.fisherds.firemote.models.Monitor;
  * A simple {@link Fragment} subclass.
  */
 public class RobotTestingFragment extends BaseFragment implements FirebaseState.ModesChangeListener, FirebaseState.MonitorChangeListener {
-
 
     private Button mFreezeResumeButton;
     private Button mGoStopButton;
@@ -53,9 +51,9 @@ public class RobotTestingFragment extends BaseFragment implements FirebaseState.
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(MainActivity.TAG, "Set the testing fragment listeners.");
+    public void onStop() {
+        super.onStop();
+        getFirebaseState().setModesDelegate(null);
     }
 
     @Override

@@ -225,6 +225,10 @@ public class FirebaseState {
         mCommandsDelegate = commandsChangeListener;
     }
 
+    public Firebase getRobotFirebaseRef() {
+        return mRobotFirebaseRef;
+    }
+
     @Override
     public String toString() {
         if (mRobotFirebaseRef == null) {
